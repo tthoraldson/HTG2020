@@ -6,6 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
+import GitHubIcon from '@material-ui/icons/GitHub';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -19,17 +24,20 @@ function Copyright() {
   );
 }
 
+// could this be passed as a props?
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: theme.palette.background.paper,
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(6, 0),
+    padding: theme.spacing(3, 2),
+    marginTop: 'auto',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 }));
 
+
 export default function Footer(props) {
   const classes = useStyles();
-  const { description, title, social } = props;
+  const { title, social } = props;
 
   return (
     <footer className={classes.footer}>
@@ -51,6 +59,15 @@ export default function Footer(props) {
     </footer>
   );
 }
+
+Footer.defaultProps = {
+  social: [
+    { name: 'GitHub', icon: GitHubIcon },
+    { name: 'Twitter', icon: TwitterIcon },
+    { name: 'Facebook', icon: FacebookIcon },
+  ],
+  title: "HTG2020",
+};
 
 Footer.propTypes = {
   description: PropTypes.string,

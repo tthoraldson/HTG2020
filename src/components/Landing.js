@@ -7,7 +7,6 @@ import bg_image from './bg1.jpeg';
 import ana from './ana.png';
 import jack from './jack.png';
 
-
 const mainLandingElementContent = {
   title: 'Connecting people in difficult times',
   description:
@@ -39,10 +38,11 @@ const featured = [
 // todo ES6 style
 
 export default function Landing() {
+
   return (
     <React.Fragment>
       <MainLandingElement post={mainLandingElementContent} />
-          
+
           <Grid container spacing={4}>
 
             {featured.map((post) => (

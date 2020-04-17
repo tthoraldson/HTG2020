@@ -1,37 +1,35 @@
 import React from 'react';
-
-import Button from '@material-ui/core/Button';
-import { createMuiTheme , makeStyles, MuiThemeProvider} from '@material-ui/core/styles';
+import {Switch, Route} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import Header from './Header';
+import Landing from './components/Landing';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import SignIn from './components/SignIn'
+import Home from './components/Home'
 
-import Link from '@material-ui/core/Link';
-
-import logo from './logo.svg';
-import './App.css';
-
-// green-ish theme
-const gtheme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#85bc5c',
-      main: '#558c2f',
-      dark: '#255e00',
-      contrastText: '#000',
-    },
-    secondary: {
-      light: '#ffffff',
-      main: '#f1f8e9',
-      dark: '#bec5b7',
-      contrastText: '#000',
-    },
-  },
-});
+import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
+  mainGrid: {
+    marginTop: theme.spacing(3),
+  },
+  toolbar: {
+    borderBottom: `0px`,
+  },
+  toolbarTitle: {
+    flex: 1,
+  },
+  toolbarSecondary: {
+    justifyContent: 'space-between',
+    overflowX: 'auto',
+  },
+  toolbarLink: {
+    padding: theme.spacing(1),
+    flexShrink: 0,
+  },
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -40,128 +38,42 @@ const useStyles = makeStyles((theme) => ({
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.grey[800]
-  },
-  footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    // backgroundColor:
-    //   theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 }));
 
 
 const App = () => {
-  const classes = useStyles(gtheme);
 
-  return(
-    
+  let location = useLocation();
+  let user = location.state
+
+  console.log("USER: ", user);
+
+  const classes = useStyles();
+  return( 
     <div className={classes.root}>
-      <MuiThemeProvider theme={gtheme}>
-      <Header title="Blog" sections={sections} />
-      <Container component="main" className={classes.main} maxWidth="lg">
-      HELLO WORLD
-      </Container>
-
-      <Copyright />
-      </MuiThemeProvider>
+    <CssBaseline />
     
-    </div>
+    <Container>
+      <Header page_title="Hand in Hand" />
 
-
-    
-     
-    
-  );
-}
-
-
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// const App = () => {
-//   const classes = useStyles(gtheme);
-
-//   return (
-//     <div className={classes.root}>
+      <main>
       
-//       <CssBaseline />
-//       <Container component="main" className={classes.main} maxWidth="sm">
-//         <Typography variant="h2" component="h1" gutterBottom>
-//           Sticky footer
-//         </Typography>
-//         <Typography variant="h5" component="h2" gutterBottom>
-//           {'Pin a footer to the bottom of the viewport.'}
-//           {'The footer will move as the main element of the page grows.'}
-//         </Typography>
-//         <Typography variant="body1">Sticky footer placeholder.</Typography>
-//       </Container>
-//       <footer className={classes.footer}>
-//         <Container maxWidth="sm">
-//           <Typography variant="body1">My sticky footer can be found here.</Typography>
-//           <Copyright />
-//         </Container>
-//       </footer>
-//     </div>
-//   );
-// }
+      <Switch>
+        <Route exact path="/" component={Landing}/>
+        <Route path="/signin" component={SignIn}/>
+        <Route path="/home" component={() => <Home{...user} />}/>
 
-const Hello = (props) => {
-  return (
-    <div>
-      <p>
-        Hello {props.name}, you are {props.age} years old
-      </p>
+      </Switch>
+      
+      </main>
+    
+    </Container>
+    
+    <Footer />
+
     </div>
-  )
+  );
 }
-
-
-// const App = () => {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-
-//         <Hello name="Kasia" age={26 + 10} />
-
-//         <Button variant="contained" color="primary">
-//             Hello World
-//         </Button>
-
-//         <StickyFooter />
-
-//       </header>
-//     </div>
-//   );
-// }
-
-
-
 
 export default App
-
-
-// some code shamelessly stolen from:
-// https://github.com/mui-org/material-ui/blob/master/docs/src/pages/getting-started/templates/sticky-footer/StickyFooter.js

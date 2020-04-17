@@ -95,7 +95,7 @@ const Bookmarks = (props) => {
     <Fade in={open}>
 
 
-        <Profile professional_id={row_id} />
+        <Profile professional_id={row_id} consumer_id={props.user_id} />
         
 
     </Fade>

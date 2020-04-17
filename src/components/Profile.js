@@ -47,15 +47,34 @@ const useFetch = url => {
   return { data, loading };
 };
 
+// fire and forget
+const requestAppointment = async url => {
+  await fetch(url, {
+    method: 'PUT'
+  })
+};
+
+// TODO add badges!!!!!
 const Profile = (props) => {
 
   const professional_id = props.professional_id
+  const consumer_id = props.consumer_id
 
-  console.log(professional_id)
+  console.log("CONSUMER_ID: ", consumer_id)
 
   const url = `http://localhost:5000/professional/${props.professional_id}`
   const classes = useStyles()
   const { data, loading } = useFetch(url);
+
+  const appointment_url = `http://localhost:5000//appointments/request-availability/${professional_id}/${consumer_id}`
+
+  // appointment button
+  const [disabled, setDisabled] = React.useState(false);
+
+  const handleClick = () => {
+    requestAppointment(appointment_url)
+    setDisabled(true)
+  }
 
   return (
     <Card className={classes.root}>
@@ -84,7 +103,7 @@ const Profile = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" disabled={disabled} onClick={() => handleClick()} >
           Ask for appointment
         </Button>
       </CardActions>

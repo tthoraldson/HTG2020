@@ -7,14 +7,24 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
 import{ useState, useEffect } from 'react';
 
-const useStyles = makeStyles({
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+
+import Profile from "./Profile";
+
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-});
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}));
 
 const useFetch = url => {
 
@@ -46,14 +56,50 @@ const Bookmarks = (props) => {
   const classes = useStyles()
   const { data, loading } = useFetch(url);
    
+  // modal
+  const [open, setOpen] = React.useState(false);
+  const [row_id, setRowID] = React.useState(0);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClick = (id) => {
+    console.log(id)
+    setOpen(true);
+    setRowID(id)
+  }
+
+
   return (
+
     <div className="App">
     {loading ? (
       <div>Loading...</div>
     ) : (
-      
-
+  
     <React.Fragment>
+
+  <Modal
+    aria-labelledby="transition-modal-title"
+    aria-describedby="transition-modal-description"
+    className={classes.modal}
+    open={open}
+    onClose={handleClose}
+    closeAfterTransition
+    BackdropComponent={Backdrop}
+    BackdropProps={{
+      timeout: 500,
+    }}
+    >
+    <Fade in={open}>
+
+
+        <Profile professional_id={row_id} />
+        
+
+    </Fade>
+    </Modal>
 
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -68,7 +114,7 @@ const Bookmarks = (props) => {
         </TableHead>
         <TableBody>
           {data.map((row) => (
-            <TableRow key={row.professiona_id}>
+            <TableRow key={row.id} hover role="checkbox" onClick={() => handleClick(row.id)} >
               <TableCell component="th" scope="row">
                 {row.fullname}
               </TableCell>

@@ -66,7 +66,7 @@ const Profile = (props) => {
   const classes = useStyles()
   const { data, loading } = useFetch(url);
 
-  const appointment_url = `http://localhost:5000//appointments/request-availability/${professional_id}/${consumer_id}`
+  const appointment_url = `http://localhost:5000/appointments/request-availability/${professional_id}/${consumer_id}`
 
   // appointment button
   const [disabled, setDisabled] = React.useState(false);

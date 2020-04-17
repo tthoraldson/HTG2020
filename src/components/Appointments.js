@@ -99,7 +99,7 @@ const Appointments = (props) => {
               <React.Fragment/>
             )}
 
-            {(props.showActions=="yes" || props.status=="Scheduled") ? (
+            {( props.status=="Scheduled") ? (
               <TableCell align="right">Contact details&nbsp;</TableCell>
             ) : ( 
               <React.Fragment/>
@@ -136,7 +136,7 @@ const Appointments = (props) => {
                 <React.Fragment/>
               )}
 
-              {(props.showActions=="yes" || props.status=="Scheduled") ? (
+              {(props.status=="Scheduled") ? (
               <TableCell align="right">{row.contact_method}({row.contact_details})&nbsp;</TableCell>
               ) : ( 
                 <React.Fragment/>

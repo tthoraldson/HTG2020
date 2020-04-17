@@ -25,7 +25,7 @@ users: {
   },
   Kate: {
     user: "Kate",
-    user_id: 3,
+    user_id: 2,
     professional: false,
     fullname: "Kate"
   }

@@ -99,6 +99,12 @@ const Appointments = (props) => {
               <React.Fragment/>
             )}
 
+            {(props.showActions=="yes" || props.status=="Scheduled") ? (
+              <TableCell align="right">Contact details&nbsp;</TableCell>
+            ) : ( 
+              <React.Fragment/>
+            )}
+
             {(props.showActions=="yes") ? (
               <TableCell align="right">Actions&nbsp;</TableCell>
             ) : ( 
@@ -126,6 +132,12 @@ const Appointments = (props) => {
 
               {(props.showActions=="yes" || props.status=="Scheduled") ? (
                 <TableCell align="right">{row.appointment_duration}</TableCell>
+              ) : ( 
+                <React.Fragment/>
+              )}
+
+              {(props.showActions=="yes" || props.status=="Scheduled") ? (
+              <TableCell align="right">{row.contact_method}({row.contact_details})&nbsp;</TableCell>
               ) : ( 
                 <React.Fragment/>
               )}

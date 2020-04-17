@@ -80,7 +80,7 @@ const Bookmarks = (props) => {
   
     <React.Fragment>
 
-  <Modal
+    <Modal
     aria-labelledby="transition-modal-title"
     aria-describedby="transition-modal-description"
     className={classes.modal}
@@ -93,11 +93,7 @@ const Bookmarks = (props) => {
     }}
     >
     <Fade in={open}>
-
-
-        <Profile professional_id={row_id} consumer_id={props.user_id} />
-        
-
+      <Profile professional_id={row_id} consumer_id={props.user_id} />
     </Fade>
     </Modal>
 

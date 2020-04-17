@@ -1,16 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import MainLandingElement from '../MainLandingElement'
-import Featured from '../Featured';
+import MainLandingElement from './MainLandingElement'
+import Featured from './Featured';
 
 import bg_image from './bg1.jpeg';
 import ana from './ana.png';
 import jack from './jack.png';
 
 const mainLandingElementContent = {
-  title: 'Connecting people in difficult times',
+  title: 'Connecting people in difficult times.',
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "The network of people looking for psychological support and professionals who could offer their help to those in need.",
   image: bg_image,
   imgText: 'Hand in Hand',
   linkText: 'Continue reading…',
@@ -29,7 +29,7 @@ const featured = [
     title: 'Jack',
     date: 'April 28',
     description:
-      "I feel very lonely. I was worried that my depression may return but could not afford therapy. Thankfully I found somebody who helped me. I asked for availability and returned the confirmation in no time. With professional support, I'm ready to face difficult times.",
+      "I feel very lonely. I was worried that my depression may return but could not afford therapy. Thankfully I found somebody who helped me. I asked for availability and received the confirmation in no time. With professional support, I'm ready to face difficult times.",
     image: jack,
     imageText: 'Jack',
   },

@@ -52,21 +52,40 @@ const appointmentAction = async url => {
   })
 };
 
-const Appointments = (props) => {
+const ActionButtons = (props) => {
 
-  const url = props.url
-  const classes = useStyles()
-  const { data, loading } = useFetch(url);
+  const [disabled, setDisabled] = useState(false);
 
   const confirm = (aid, pid) => {
     let url = `http://127.0.0.1:5000/appointments/accept-availability/${aid}/${pid}/${props.user_id}`
     appointmentAction(url)
+    setDisabled(true)
   }
 
   const resign = (aid, pid) => {
     let url = `http://127.0.0.1:5000/appointments/reject-availability/${aid}/${pid}/${props.user_id}`
     appointmentAction(url)
+    setDisabled(true)
   }
+  
+  return (
+    <React.Fragment>
+    <Button size="small" color="primary" disabled={disabled} onClick={() => confirm(props.appointments_id, props.professional_id)} >
+    Confirm
+    </Button>
+    <Button size="small" color="secondary" disabled={disabled} onClick={() => resign(props.appointments_id, props.professional_id)} >
+    Resign
+    </Button>
+    </React.Fragment>
+  )
+}
+
+
+const Appointments = (props) => {
+
+  const url = props.url
+  const classes = useStyles()
+  const { data, loading } = useFetch(url);
 
   return (
 
@@ -99,7 +118,7 @@ const Appointments = (props) => {
               <React.Fragment/>
             )}
 
-            {(props.showActions=="yes" || props.status=="Scheduled") ? (
+            {( props.status=="Scheduled") ? (
               <TableCell align="right">Contact details&nbsp;</TableCell>
             ) : ( 
               <React.Fragment/>
@@ -136,7 +155,7 @@ const Appointments = (props) => {
                 <React.Fragment/>
               )}
 
-              {(props.showActions=="yes" || props.status=="Scheduled") ? (
+              {(props.status=="Scheduled") ? (
               <TableCell align="right">{row.contact_method}({row.contact_details})&nbsp;</TableCell>
               ) : ( 
                 <React.Fragment/>
@@ -144,12 +163,7 @@ const Appointments = (props) => {
 
               {(props.showActions=="yes") ? (
                 <TableCell align="right">
-                  <Button size="small" color="primary" onClick={() => confirm(row.appointments_id, row.professional_id)} >
-                    Confirm
-                  </Button>
-                  <Button size="small" color="secondary" onClick={() => resign(row.appointments_id, row.professional_id)} >
-                    Resign
-                  </Button>
+                  <ActionButtons user_id={props.user_id} appointments_id={row.appointments_id} professional_id={row.professional_id} />
                 </TableCell>
               ) : ( 
                 <React.Fragment/>

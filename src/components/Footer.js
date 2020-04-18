@@ -16,7 +16,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Made with '}
-      <FavoriteIcon fontsize="small"/>
+      <FavoriteIcon width="20px" height="20px"/>
       {' at '}
       <Link color="inherit" href="https://www.hackthegap.com/">
         Hack The Gap

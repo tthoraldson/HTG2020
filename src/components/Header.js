@@ -45,9 +45,7 @@ export default function Header(props) {
           
         </Typography>
 
-        <Button color="secondary" href="/signin"> 
-          Sign In
-        </Button>
+        <LogInLogOut isLoggedIn={false} />
 
       </Toolbar>
 
@@ -55,6 +53,29 @@ export default function Header(props) {
   );
 }
 
+function SignInButton() {
+  return (
+    <Button color="secondary" href="/signin"> 
+          Sign In
+    </Button>
+  );
+}
+
+function SignOutButton() {
+  return (
+    <Button color="secondary" href="/"> 
+          Sign Out
+    </Button>
+  );
+}
+
+function LogInLogOut(props) {
+  console.log(props.fullname, typeof props.fullname !== 'undefined')
+  if (typeof props.fullname !== 'undefined') {
+    return <SignOutButton />;
+  }
+  return <SignInButton />;
+}
 
 Header.propTypes = {
   sections: PropTypes.array,

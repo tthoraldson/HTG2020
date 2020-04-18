@@ -9,16 +9,19 @@ import Grid from '@material-ui/core/Grid';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      {'Made with '}
+      <FavoriteIcon fontsize="small"/>
+      {' at '}
+      <Link color="inherit" href="https://www.hackthegap.com/">
+        Hack The Gap
       </Link>{' '}
-      {new Date().getFullYear()}
+      {'2020'}
       {'.'}
     </Typography>
   );
@@ -45,16 +48,7 @@ export default function Footer(props) {
         <Typography variant="h6" align="center" gutterBottom>
           {title}
         </Typography>
-        
-        <Grid container xs={12} spacint={3} direction="row" justify="center" alignItems="center">
-          {social.map((network) => (
-            <Grid item spacint={3}>
-              <network.icon />
-            </Grid>
-         ))}
-         </Grid>
-      
-        // <Copyright />
+        <Copyright />
       </Container>
     </footer>
   );
@@ -62,11 +56,11 @@ export default function Footer(props) {
 
 Footer.defaultProps = {
   social: [
-    { name: 'GitHub', icon: GitHubIcon },
+    { name: 'GitHub', icon: GitHubIcon, href: 'http://github.com/tthoraldson/HTG2020'},
     //{ name: 'Twitter', icon: TwitterIcon },
     //{ name: 'Facebook', icon: FacebookIcon },
   ],
-  title: "HTG2020",
+  title: "Hand in Hand",
 };
 
 Footer.propTypes = {

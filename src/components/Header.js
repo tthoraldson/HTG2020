@@ -46,7 +46,7 @@ export default function Header(props) {
         </Typography>
 
         <Button color="secondary" href="/signin"> 
-          Sign in
+          Sign In
         </Button>
 
       </Toolbar>
@@ -54,6 +54,7 @@ export default function Header(props) {
     </React.Fragment>
   );
 }
+
 
 Header.propTypes = {
   sections: PropTypes.array,

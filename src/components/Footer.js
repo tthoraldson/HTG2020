@@ -54,7 +54,7 @@ export default function Footer(props) {
          ))}
          </Grid>
       
-        <Copyright />
+        // <Copyright />
       </Container>
     </footer>
   );
@@ -63,8 +63,8 @@ export default function Footer(props) {
 Footer.defaultProps = {
   social: [
     { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon },
-    { name: 'Facebook', icon: FacebookIcon },
+    //{ name: 'Twitter', icon: TwitterIcon },
+    //{ name: 'Facebook', icon: FacebookIcon },
   ],
   title: "HTG2020",
 };

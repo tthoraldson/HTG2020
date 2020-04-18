@@ -11,6 +11,7 @@ import SignIn from './components/SignIn'
 import Home from './components/Home'
 
 import { useHistory, useLocation } from "react-router-dom";
+import SignUp from './components/SignUp';
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -62,6 +63,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Landing}/>
         <Route path="/signin" component={SignIn}/>
+        <Route path="/signup" component={SignUp}/>
         <Route path="/home" component={() => <Home{...user} />}/>
 
       </Switch>

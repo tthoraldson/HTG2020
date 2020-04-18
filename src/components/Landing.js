@@ -29,7 +29,7 @@ const featured = [
     title: 'Jack',
     date: 'April 28',
     description:
-      "I feel very lonely. I was worried that my depression may return but could not afford therapy. Thankfully I found somebody who helped me. I asked for availability and received the confirmation in no time. With professional support, I'm ready to face difficult times.",
+      "I felt very lonely. I was worried that my depression may return but could not afford therapy. Thankfully I found somebody who helped me. I asked for availability and received the confirmation in no time. With professional support, I'm ready to face difficult times.",
     image: jack,
     imageText: 'Jack',
   },

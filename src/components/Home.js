@@ -19,6 +19,10 @@ import Box from '@material-ui/core/Box';
 import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
+import AppointmentRequests from './AppointmentRequests'
+import ScheduledAppointments from './ScheduledAppointments'
+
+import Badges from './Badges'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,17 +90,6 @@ const Home = (props) => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
-  // constructor(props) {
-  //     console.log("HOME user: ", props)
-  //     super(props);
-  //     // this.state = {isLoggedIn: false};
-  //     this.user_id = this.props.user_id;
-  //     this.professional = this.props.professional;
-  //     this.bookmarks = [{fullname:"ddd", qualifications:"ddd", profession:'fdfd', specialties:'fdfdf', languages:'fff'},{ 
-  //                       fullname:"jhjghj", qualifications:"jhh", profession:"ukyjy", specialties:'dfdf', languages:"fsfd"}]
-  //   }
-
   let bookmarks;
   let requested_appointents;
   let requested_appointments_url;
@@ -121,13 +114,68 @@ const Home = (props) => {
   scheduled_appointments_url = `http://localhost:5000/appointments/list-requested-scheduled/${props.user_id}`
   scheduled_appointents = <Appointments user_id = {props.user_id} url = {scheduled_appointments_url} status="Scheduled"/>
 
+
+  //components for professionals
+  let appointments_requests_url = `http://127.0.0.1:5000/appointments/list-availability-requests/${props.user_id}`
+  let appointments_request = <AppointmentRequests url={appointments_requests_url} user_id={props.user_id} />
+
+  let appointments_scheduled_url = `http://127.0.0.1:5000/appointments/list-appointments-scheduled/${props.user_id}`
+  let appointments_scheduled = <ScheduledAppointments url={appointments_scheduled_url} user_id={props.user_id} />
+
+  let badges = <Badges user_id={props.user_id} />
+
+
   return (
 
       <React.Fragment>
         <Welcome professional={props.professional} fullname={props.fullname} qualifications={props.qualifications} />
         
-
         <div className={classes.root}>
+        { (props.professional==true) ? (
+          // professional landing page
+          <React.Fragment>
+          <AppBar position="static" color="default">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab label="Appointment requests" {...a11yProps(0)} />
+              <Tab label="Scheduled appointments" {...a11yProps(1)} />
+              <Tab label="Earned badges" {...a11yProps(2)} />
+            </Tabs>
+          </AppBar>
+
+          <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+          >
+            <TabPanel value={value} index={0} dir={theme.direction}>
+              {appointments_request}
+            </TabPanel>
+          
+            <TabPanel value={value} index={1} dir={theme.direction}>
+              {appointments_scheduled}
+            </TabPanel>
+
+            <TabPanel value={value} index={2} dir={theme.direction}>
+              {badges}
+            </TabPanel>
+          
+          </SwipeableViews>
+        
+        </React.Fragment>
+         
+
+
+
+        ) : (
+          // consumer landing page
+        <React.Fragment>
         <AppBar position="static" color="default">
           <Tabs
             value={value}
@@ -139,8 +187,9 @@ const Home = (props) => {
           >
             <Tab label="Search" {...a11yProps(0)} />
             <Tab label="Scheduled" {...a11yProps(1)} />
-            <Tab label="To confirm" {...a11yProps(2)} />
-            <Tab label="Bookmarks" {...a11yProps(2)} />
+            <Tab label="Waiting for answer" {...a11yProps(2)} />
+            <Tab label="To confirm" {...a11yProps(3)} />
+            <Tab label="Bookmarks" {...a11yProps(4)} />
           </Tabs>
         </AppBar>
 
@@ -156,22 +205,28 @@ const Home = (props) => {
           <TabPanel value={value} index={1} dir={theme.direction}>
             {scheduled_appointents}
           </TabPanel>
-          
+
           <TabPanel value={value} index={2} dir={theme.direction}>
-            {to_confirm_appointments}
+            {requested_appointents}
           </TabPanel>
           
           <TabPanel value={value} index={3} dir={theme.direction}>
+            {to_confirm_appointments}
+          </TabPanel>
+          
+          <TabPanel value={value} index={4} dir={theme.direction}>
             {bookmarks}
           </TabPanel>
           
         </SwipeableViews>
-    </div>
+
+        </React.Fragment>       
+        )}
+        
+        </div>
 
 
         
-
-
       </React.Fragment>
     );
   

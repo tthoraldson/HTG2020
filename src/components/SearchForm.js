@@ -53,6 +53,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const BookmarkButton = (props) => {
+    // fire and forget
+    const putBookmark = async (user_id, professional_id) => {
+      let url = `http://127.0.0.1:5000/consumer/${props.user_id}/bookmark/${props.professional_id}`
+      await fetch(url, {
+        method: 'PUT'
+      })
+    };
+
+  const [bookmark_disabled, setDisabled] = useState(undefined)
+  const addToBookmarks = (event, professional_id) => {
+    event.stopPropagation()
+    putBookmark(props.user_id, professional_id)
+    setDisabled(true)
+  }
+
+  return(
+    <IconButton color="primary" z-index="9999" disabled={bookmark_disabled} aria-label="bookmark" onClick={(e) => addToBookmarks(e, props.professional_id)}>  
+      <BookmarkBorderIcon />
+    </IconButton>
+  );
+}
+
+
 const SearchForm = (props) => {
 
   const classes = useStyles();
@@ -82,14 +106,6 @@ const SearchForm = (props) => {
     }
     return data;
   }
-
-  // fire and forget
-  const putBookmark = async (user_id, professional_id) => {
-    let url = `http://127.0.0.1:5000/consumer/${user_id}/bookmark/${professional_id}`
-    await fetch(url, {
-      method: 'PUT'
-    })
-  };
   
   const handleChange = (event) => {
     setString(event.target.value);
@@ -100,12 +116,6 @@ const SearchForm = (props) => {
     let data = await fetchResults(formString)
     setSearchResult(data);
   };
-
-  // the bookmark icon could be refactored to a component
-  // so we can disable it after click
-  const addToBookmarks = (professional_id) => {
-    putBookmark(props.user_id, professional_id)
-  }
 
   // modal with profile
   const [open, setOpen] = React.useState(false);
@@ -179,9 +189,7 @@ const SearchForm = (props) => {
               <TableCell align="right">{row.specialties}</TableCell>
               <TableCell align="right">{row.languages}</TableCell>
               <TableCell align="right">
-                <IconButton color="primary" aria-label="bookmark" onClick={() => addToBookmarks(row.professional_id)}>  
-                  <BookmarkBorderIcon />
-                </IconButton>
+                <BookmarkButton professional_id={row.professional_id} user_id={props.user_id} />
               </TableCell>
             </TableRow>
           ))}

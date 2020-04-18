@@ -7,8 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import{ useState, useEffect } from 'react';
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles({
   root: {
@@ -23,6 +24,7 @@ const useFetch = url => {
 
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [badges, setBadges] = useState([]);
 
   const fetchProfile = async () => {
     console.log("fetchProfile")
@@ -34,17 +36,17 @@ const useFetch = url => {
     if(response.status == 200){
       data = await response.json();
     }
-    
+
+    setBadges(data.badges)
     setData(data);
     setLoading(false);
   };
 
   useEffect(() => {
-    console.log("useEffect")
     fetchProfile();
   }, {});
 
-  return { data, loading };
+  return { data, badges, loading};
 };
 
 // fire and forget
@@ -54,7 +56,6 @@ const requestAppointment = async url => {
   })
 };
 
-// TODO add badges!!!!!
 const Profile = (props) => {
 
   const professional_id = props.professional_id
@@ -64,7 +65,7 @@ const Profile = (props) => {
 
   const url = `http://localhost:5000/professional/${props.professional_id}`
   const classes = useStyles()
-  const { data, loading } = useFetch(url);
+  const { data, badges, loading } = useFetch(url);
 
   const appointment_url = `http://localhost:5000/appointments/request-availability/${professional_id}/${consumer_id}`
 
@@ -99,6 +100,15 @@ const Profile = (props) => {
           </Typography>
           <Typography gutterBottom variant="subtitle2" component="h2">
             Languages: {data.languages}
+          </Typography>
+          <Typography gutterBottom variant="subtitle2" component="h2">
+          <div> 
+
+          {badges.map((row) => (
+            <Chip icon={<LoyaltyIcon />} label={row.badge_name}/>
+          ))}
+          </div>
+          
           </Typography>
         </CardContent>
       </CardActionArea>

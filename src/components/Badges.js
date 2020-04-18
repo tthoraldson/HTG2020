@@ -42,8 +42,6 @@ const useFetch = url => {
       data = await response.json();
     }
 
-    console.log(data.badges)
-
     setData(data.badges);
     setLoading(false);
   };
